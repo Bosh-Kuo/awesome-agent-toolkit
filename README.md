@@ -84,6 +84,7 @@ Agent skills are specialized instruction sets that enable AI assistants to perfo
 | **Vercel React Best Practices** | React and Next.js performance optimization, patterns, and best practices from Vercel                                              | [Skill](./skills/vercel-react-best-practices) | [GitHub](https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices)  | 2026-01-21    |
 | **Skill Creator**               | Meta-skill for creating new agent skills with proper structure and documentation                                                  | [Skill](./skills/skill-creator)               | [GitHub](https://github.com/anthropics/skills/tree/main/skills/skill-creator)                | 2026-01-21    |
 | **Web Design Guidelines**       | Modern web design principles, patterns, and accessibility guidelines                                                              | [Skill](./skills/web-design-guidelines)       | [GitHub](https://github.com/vercel-labs/agent-skills/tree/main/skills/web-design-guidelines) | 2026-01-21    |
+| **Spec Writer**                 | Generates comprehensive feature specs from code using system analysis patterns. Optimized for Frontend, Backend, and Full-stack.  | [Skill](./skills/spec-writer)                 | [Personal Collection](https://github.com/Bosh-Kuo/awesome-agent-toolkit)                     | 2026-01-22    |
 
 ### Skills Resources
 
