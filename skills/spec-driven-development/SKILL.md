@@ -66,6 +66,7 @@ graph TD
     - Creates `{YYYYMMDD}-{TASK_TITLE}` directory with 4 empty template files.
 
 **Output**: A clean, isolated workspace for the task.
+
 **Transition**: **AUTO-PROCEED to Phase 2**. Do not stop to report "Initialization Complete".
 
 ### 2. Deep Research & Planning Phase
@@ -79,10 +80,11 @@ graph TD
     - **`task.md`**: TODO Checklist (from `templates/task-template.md`).
 
 **Output**: Drafted specification and planning documents.
+
 **Transition**: **STOP & REPORT**. Present the plan to the user with **exactly** these 3 options:
-    - **2.1. Execute Immediately**: User agrees -> Proceed to Phase 3.
-    - **2.2. Adjust & Execute**: User gives minor feedback -> Update docs -> Proceed to Phase 3 (no second confirmation).
-    - **2.3. Adjust & Review**: User gives major feedback -> Update docs -> **STOP & REPORT** (ask for confirmation again).
+- **2.1. Execute Immediately**: User agrees -> Proceed to Phase 3.
+- **2.2. Adjust & Execute**: User gives minor feedback -> Update docs -> Proceed to Phase 3 (no second confirmation).
+- **2.3. Adjust & Review**: User gives major feedback -> Update docs -> **STOP & REPORT** (ask for confirmation again).
 
 ### 3. Execution Phase
 **Input**: Approved `spec.md`, `implementation.md`, `task.md`.
@@ -93,6 +95,7 @@ graph TD
 3.  **Check Completion**: Continue until all items in `task.md` are checked.
 
 **Output**: Completed implementation and updated `task.md`.
+
 **Transition**: **AUTO-PROCEED to Phase 4** immediately after all tasks are done. Do not stop to ask "Ready for next phase?".
 
 ### 4. Completion & Archiving Phase
@@ -108,4 +111,5 @@ graph TD
     - Resume at Phase 3.
 
 **Output**: Final project summary.
+
 **Transition**: **STOP & REPORT**. Inform the user the task is fully complete and present the `walk-through.md`.

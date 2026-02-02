@@ -55,6 +55,7 @@ Model Context Protocol (MCP) servers extend your AI assistant's capabilities by 
 | **Context7**              | Access up-to-date documentation and code examples for any programming library or framework | [Config](./mcp-configs/context7.json)              | [Official Site](https://context7.com/)                               | 2026-01-21      |
 | **Chrome DevTools**       | Interact with Chrome browser for testing, debugging, and automation                        | [Config](./mcp-configs/chrome-devtools-mcp.json)   | [Chrome Blog](https://developer.chrome.com/blog/chrome-devtools-mcp) | 2026-01-21      |
 | **MCP Feedback Enhanced** | Enhanced feedback and debugging capabilities with web interface                            | [Config](./mcp-configs/mcp-feedback-enhanced.json) | [GitHub](https://github.com/hexonal/mcp-feedback-enhanced)           | 2026-01-21      |
+| **Shadcn UI**             | Access component source code, demos, and blocks for shadcn/ui                              | [Config](./mcp-configs/shadcn.json)                | [GitHub](https://github.com/Jpisnice/shadcn-ui-mcp-server)           | 2026-02-02      |
 
 ### MCP Resources
 
@@ -67,9 +68,13 @@ Discover more MCP servers from these curated collections:
 
 ## 📏 Rules
 
-> Coming soon
-
 Custom rules help guide AI behavior and enforce coding standards across your projects.
+
+### Available Rules
+
+| Name                         | Description                                                                    | Link                                     | Updated to Repo |
+| ---------------------------- | ------------------------------------------------------------------------------ | ---------------------------------------- | --------------- |
+| **MCP Interactive Feedback** | Guidelines for mandatory feedback loops using the `mcp-feedback-enhanced` tool | [Rule](./rules/mcp-feedback-enhanced.md) | 2026-02-02      |
 
 ---
 
