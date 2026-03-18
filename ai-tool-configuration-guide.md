@@ -4,13 +4,13 @@
 
 ## 📋 Table of Contents
 
-- [Antigravity](#-antigravity)
-- [Claude Code](#-claude-code)
-- [Opencode](#-opencode)
-- [Windsurf](#-windsurf)
-- [Codex (OpenAI)](#-codex-openai)
-- [Cross-Tool Compatibility](#-cross-tool-compatibility)
-- [Official Documentation Links](#-official-documentation-links)
+- [Antigravity](#antigravity)
+- [Claude Code](#claude-code)
+- [Opencode](#opencode)
+- [Windsurf](#windsurf)
+- [Codex (OpenAI)](#codex-openai)
+- [Cross-Tool Compatibility](#cross-tool-compatibility)
+- [Official Documentation Links](#official-documentation-links)
 
 ---
 
@@ -58,6 +58,19 @@ User-triggered, saved sequences of steps invoked via slash commands.
 
 Claude Code is Anthropic's command-line AI coding assistant.
 
+### Configuration Scopes
+
+Claude Code uses a **scope system** to determine where settings apply and who they're shared with. More specific scopes take precedence over broader ones.
+
+| Scope       | Location                                                              | Affects                        | Shared with Team?      |
+| ----------- | --------------------------------------------------------------------- | ------------------------------ | ---------------------- |
+| **Managed** | Server-managed settings, plist/registry, or system `managed-settings.json` | All users on the machine  | Yes (deployed by IT)   |
+| **User**    | `~/.claude/` directory                                                | You, across all projects       | No                     |
+| **Project** | `.claude/` in repository                                              | All collaborators on this repo | Yes (committed to git) |
+| **Local**   | `.claude/settings.local.json`                                         | You, in this repo only         | No (gitignored)        |
+
+**Precedence** (highest → lowest): Managed → CLI args → Local → Project → User
+
 ### Rules (Memory)
 
 Persistent instructions loaded at session start. Supports `CLAUDE.md` files and `.claude/rules/` directory for modular rule organization.
@@ -88,14 +101,27 @@ Subagent definitions for specialized tasks (e.g., code review, documentation).
 | Global    | `~/.claude/agents/*.md` | Markdown |
 | Workspace | `.claude/agents/*.md`   | Markdown |
 
+### Settings
+
+Persistent behavior configuration via `settings.json`. Controls permissions, hooks, environment variables, and more.
+
+| Scope   | Path                                                          | Format |
+| ------- | ------------------------------------------------------------- | ------ |
+| Managed | System dir `managed-settings.json` or MDM/registry policy    | JSON   |
+| Global  | `~/.claude/settings.json`                                     | JSON   |
+| Project | `.claude/settings.json`                                       | JSON   |
+| Local   | `.claude/settings.local.json`                                 | JSON   |
+
 ### Plugins
 
 Bundles of skills, agents, hooks, and MCP servers that can be distributed and shared via marketplace.
 
-| Scope           | Path                              | Format |
-| --------------- | --------------------------------- | ------ |
-| Plugin manifest | `.claude-plugin/plugin.json`      | JSON   |
-| Installation    | Via `--plugin-dir` or marketplace | —      |
+| Scope    | Path                              | Format |
+| -------- | --------------------------------- | ------ |
+| Global   | `~/.claude/settings.json`         | JSON   |
+| Project  | `.claude/settings.json`           | JSON   |
+| Local    | `.claude/settings.local.json`     | JSON   |
+| Manifest | `.claude-plugin/plugin.json`      | JSON   |
 
 ### Hooks
 
@@ -108,11 +134,11 @@ Shell commands executed at key lifecycle points (pre/post tool use, notification
 
 ### MCP Servers
 
-| Scope         | Path                                   | Format |
-| ------------- | -------------------------------------- | ------ |
-| User (local)  | `~/.claude.json`                       | JSON   |
-| User (global) | `~/.claude.json` (with `--scope user`) | JSON   |
-| Project       | `.mcp.json`                            | JSON   |
+| Scope   | Path                                          | Format |
+| ------- | --------------------------------------------- | ------ |
+| Global  | `~/.claude.json` (with `--scope user`)        | JSON   |
+| Project | `.mcp.json`                                   | JSON   |
+| Local   | `~/.claude.json` (project-scoped, gitignored) | JSON   |
 
 ---
 
@@ -304,13 +330,15 @@ One of the biggest challenges when using multiple AI coding tools is maintaining
 
 ### Claude Code
 
-| Topic          | URL                                                                                      |
-| -------------- | ---------------------------------------------------------------------------------------- |
-| Overview       | [docs.anthropic.com/en/docs/claude-code](https://docs.anthropic.com/en/docs/claude-code) |
-| Memory & Rules | [Memory Docs](https://docs.anthropic.com/en/docs/claude-code/memory)                     |
-| Skills         | [Skills Docs](https://docs.anthropic.com/en/docs/claude-code/skills)                     |
-| Plugins        | [Plugins Docs](https://docs.anthropic.com/en/docs/claude-code/plugins)                   |
-| MCP            | [MCP Docs](https://docs.anthropic.com/en/docs/claude-code/mcp)                           |
+| Topic                  | URL                                                                                                          |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Overview               | [docs.anthropic.com/en/docs/claude-code](https://docs.anthropic.com/en/docs/claude-code)                    |
+| Memory & Rules         | [Memory Docs](https://docs.anthropic.com/en/docs/claude-code/memory)                                        |
+| Skills                 | [Skills Docs](https://docs.anthropic.com/en/docs/claude-code/skills)                                        |
+| Agents                 | [Agents Docs](https://docs.anthropic.com/en/docs/claude-code/sub-agents)                                    |
+| Settings & Scopes      | [Settings Docs](https://code.claude.com/docs/zh-TW/settings#configuration-scopes)                           |
+| Plugins                | [Plugins Docs](https://docs.anthropic.com/en/docs/claude-code/plugins)                                      |
+| MCP                    | [MCP Docs](https://docs.anthropic.com/en/docs/claude-code/mcp)                                              |
 
 ### Opencode
 
