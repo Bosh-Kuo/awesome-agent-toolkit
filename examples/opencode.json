@@ -1,0 +1,101 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "chrome-devtools": {
+      "type": "local",
+      "command": ["npx", "-y", "chrome-devtools-mcp@latest"],
+      "enabled": true
+    },
+    "context7": {
+      "type": "local",
+      "command": ["npx", "-y", "@upstash/context7-mcp"],
+      "enabled": true
+    },
+    "sqlite": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@executeautomation/database-server",
+        "/path/to/your/database.db"
+      ],
+      "enabled": true
+    },
+    "sqlserver": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@executeautomation/database-server",
+        "--sqlserver",
+        "--server",
+        "your-server-name",
+        "--database",
+        "your-database-name",
+        "--user",
+        "your-username",
+        "--password",
+        "your-password"
+      ],
+      "enabled": true
+    },
+    "postgresql": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@executeautomation/database-server",
+        "--postgresql",
+        "--host",
+        "your-host-name",
+        "--database",
+        "your-database-name",
+        "--user",
+        "your-username",
+        "--password",
+        "your-password"
+      ],
+      "enabled": true
+    },
+    "mysql": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@executeautomation/database-server",
+        "--mysql",
+        "--host",
+        "your-host-name",
+        "--database",
+        "your-database-name",
+        "--port",
+        "3306",
+        "--user",
+        "your-username",
+        "--password",
+        "your-password"
+      ],
+      "enabled": true
+    },
+    "mcp-feedback-enhanced": {
+      "type": "local",
+      "command": [
+        "uvx",
+        "--from",
+        "git+https://github.com/hexonal/mcp-feedback-enhanced@fix/image-serialization-issues",
+        "mcp-feedback-enhanced"
+      ],
+      "enabled": true,
+      "environment": {
+        "FORCE_WEB": "true",
+        "MCP_DEBUG": "false",
+        "MCP_WEB_PORT": "8765"
+      }
+    },
+    "shadcn": {
+      "type": "local",
+      "command": ["npx", "shadcn@latest", "mcp"],
+      "enabled": true
+    }
+  }
+}

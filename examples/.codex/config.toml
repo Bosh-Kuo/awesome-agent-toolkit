@@ -1,0 +1,40 @@
+model = "gpt-5.4"
+model_reasoning_effort = "medium"
+personality = "pragmatic"
+
+[mcp_servers.chrome-devtools]
+command = "npx"
+args = ["-y", "chrome-devtools-mcp@latest"]
+
+[mcp_servers.context7]
+command = "npx"
+args = ["-y", "@upstash/context7-mcp"]
+
+[mcp_servers.sqlite]
+command = "npx"
+args = ["-y", "@executeautomation/database-server", "/path/to/your/database.db"]
+
+[mcp_servers.sqlserver]
+command = "npx"
+args = ["-y", "@executeautomation/database-server", "--sqlserver", "--server", "your-server-name", "--database", "your-database-name", "--user", "your-username", "--password", "your-password"]
+
+[mcp_servers.postgresql]
+command = "npx"
+args = ["-y", "@executeautomation/database-server", "--postgresql", "--host", "your-host-name", "--database", "your-database-name", "--user", "your-username", "--password", "your-password"]
+
+[mcp_servers.mysql]
+command = "npx"
+args = ["-y", "@executeautomation/database-server", "--mysql", "--host", "your-host-name", "--database", "your-database-name", "--port", "3306", "--user", "your-username", "--password", "your-password"]
+
+[mcp_servers.mcp-feedback-enhanced]
+command = "uvx"
+args = ["--from", "git+https://github.com/hexonal/mcp-feedback-enhanced@fix/image-serialization-issues", "mcp-feedback-enhanced"]
+[mcp_servers."mcp-feedback-enhanced".env]
+FORCE_WEB = "true"
+MCP_DEBUG = "false"
+MCP_WEB_PORT = "8765"
+
+[mcp_servers.shadcn]
+command = "npx"
+args = ["shadcn@latest", "mcp"]
+
