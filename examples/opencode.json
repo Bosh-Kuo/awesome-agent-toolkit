@@ -77,21 +77,6 @@
       ],
       "enabled": true
     },
-    "mcp-feedback-enhanced": {
-      "type": "local",
-      "command": [
-        "uvx",
-        "--from",
-        "git+https://github.com/hexonal/mcp-feedback-enhanced@fix/image-serialization-issues",
-        "mcp-feedback-enhanced"
-      ],
-      "enabled": true,
-      "environment": {
-        "FORCE_WEB": "true",
-        "MCP_DEBUG": "false",
-        "MCP_WEB_PORT": "8765"
-      }
-    },
     "shadcn": {
       "type": "local",
       "command": ["npx", "shadcn@latest", "mcp"],
