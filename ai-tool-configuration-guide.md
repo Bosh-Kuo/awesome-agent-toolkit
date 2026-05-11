@@ -246,43 +246,45 @@ Shell commands executed at lifecycle events (pre/post read, write, command, MCP 
 
 ## Codex (OpenAI)
 
-Codex is OpenAI's CLI-based AI coding agent.
+Codex is OpenAI's AI coding agent, available through the Codex CLI, IDE extension, desktop app, and cloud interface.
 
 ### Rules
 
-| Scope     | Path                       | Format   |
-| --------- | -------------------------- | -------- |
-| Global    | `~/.codex/AGENTS.md`       | Markdown |
-| Workspace | `AGENTS.md` (project root) | Markdown |
+| Scope     | Path                                             | Format   |
+| --------- | ------------------------------------------------ | -------- |
+| Global    | `~/.codex/AGENTS.md` or `~/.codex/AGENTS.override.md` | Markdown |
+| Workspace | `AGENTS.md` or `AGENTS.override.md` from project root down to the current directory | Markdown |
 
-> **Note:** Codex also supports `AGENTS.override.md` at any level (global or directory) which takes precedence over `AGENTS.md`. Instructions are discovered from global → project root → current directory, with later files overriding earlier ones.
+> **Note:** Codex reads one instruction file per level. It checks `AGENTS.override.md` before `AGENTS.md`, then any filenames configured in `project_doc_fallback_filenames`. Instructions are concatenated from global → project root → current directory, so files closer to the current directory take precedence.
 
 ### Skills
 
-| Scope     | Path                              | Format                      |
-| --------- | --------------------------------- | --------------------------- |
-| User      | `~/.codex/skills/<name>/SKILL.md` | Markdown + YAML frontmatter |
-| Workspace | `.agents/skills/<name>/SKILL.md`  | Markdown + YAML frontmatter |
+| Scope     | Path                                  | Format                      |
+| --------- | ------------------------------------- | --------------------------- |
+| Repository | `.agents/skills/<name>/SKILL.md` in the current directory, parent directories, or repository root | Markdown + YAML frontmatter |
+| User      | `~/.agents/skills/<name>/SKILL.md`    | Markdown + YAML frontmatter |
+| Admin     | `/etc/codex/skills/<name>/SKILL.md`   | Markdown + YAML frontmatter |
+| System    | Bundled with Codex                    | Markdown + YAML frontmatter |
 
-> **Note:** Codex also supports an optional `agents/openai.yaml` file within each skill directory for UI metadata, invocation policies, and tool dependencies in the Codex app.
+> **Note:** Codex also supports an optional `agents/openai.yaml` file within each skill directory for Codex app UI metadata, invocation policy, and tool dependencies. Per-skill enablement can be controlled with `[[skills.config]]` entries in `~/.codex/config.toml`.
 
 ### Agents (Multi-Agent)
 
-Experimental multi-agent orchestration — Codex can spawn sub-agents for parallel tasks. Agent roles are defined in `config.toml` under `[agents.<name>]` sections.
+Multi-agent orchestration lets Codex spawn sub-agents for parallel tasks. Agent limits and roles are configured in `config.toml` under `agents.*` keys such as `[agents.<name>]`.
 
-| Scope     | Path                                             | Format |
-| --------- | ------------------------------------------------ | ------ |
-| Global    | `~/.codex/config.toml` (under `[agents.<name>]`) | TOML   |
-| Workspace | `.codex/config.toml` (under `[agents.<name>]`)   | TOML   |
+| Scope     | Path                                                   | Format |
+| --------- | ------------------------------------------------------ | ------ |
+| Global    | `~/.codex/config.toml` (under `agents.*` / `[agents.<name>]`) | TOML   |
+| Workspace | `.codex/config.toml` (under `agents.*` / `[agents.<name>]`)   | TOML   |
 
-> **Note:** Requires enabling via `/experimental` in the CLI or adding `[features] multi_agent = true` to `config.toml`.
+> **Note:** The `features.multi_agent` flag controls the collaboration tools (`spawn_agent`, `send_input`, `resume_agent`, `wait_agent`, and `close_agent`) and is stable/on by default in current Codex docs.
 
 ### MCP Servers
 
-| Scope     | Path                                   | Format |
-| --------- | -------------------------------------- | ------ |
-| Global    | `~/.codex/config.toml` (under `[mcp]`) | TOML   |
-| Workspace | `.codex/config.toml` (under `[mcp]`)   | TOML   |
+| Scope     | Path                                                | Format |
+| --------- | --------------------------------------------------- | ------ |
+| Global    | `~/.codex/config.toml` (under `[mcp_servers.<id>]`) | TOML   |
+| Workspace | `.codex/config.toml` (under `[mcp_servers.<id>]`)   | TOML   |
 
 ---
 
@@ -369,7 +371,7 @@ One of the biggest challenges when using multiple AI coding tools is maintaining
 | CLI Documentation | [Codex CLI Docs](https://developers.openai.com/codex)                     |
 | AGENTS.md Guide   | [AGENTS.md Guide](https://developers.openai.com/codex/guides/agents-md)   |
 | Skills            | [Codex Skills Docs](https://developers.openai.com/codex/skills)           |
-| Multi-agents      | [Codex Multi-Agent Docs](https://developers.openai.com/codex/multi-agent) |
+| Config Reference  | [Codex Config Reference](https://developers.openai.com/codex/config-reference) |
 | MCP               | [Codex MCP Docs](https://developers.openai.com/codex/mcp)                 |
 | GitHub (CLI)      | [github.com/openai/codex](https://github.com/openai/codex)                |
 
