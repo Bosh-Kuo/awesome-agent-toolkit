@@ -1,32 +1,28 @@
 # FocusFlow — Product Requirements Document
 
-> **Version:** 0.1 | **Date:** 2026-03-25 | **Status:** Draft
+> **Date:** 2026-03-25 | **Status:** Draft | **Current Phase:** v0.2
 
 ---
 
 ## 1. Project Overview
 
 - **One-sentence description:** A productivity web app that helps remote workers focus on daily tasks and track deep work time.
+- **Product Vision:** Help remote workers plan their day, stay in flow, and end each workday with a clear record of what they accomplished.
 - **Core Problem:** Remote workers frequently switch between multiple projects and lack a unified place to manage "what to do today" and "how much time was actually spent." Existing tools (Notion, Todoist) are too bloated and add cognitive load.
 - **Target Audience (TA):** Remote software engineers, freelancers, solopreneurs.
+- **Current Product Phase:** v0.2 — refine the validated MVP with a small group of recurring users before preparing for a broader launch.
 
 ---
 
-## 2. Product Vision
+## 2. Core Objectives
 
-> We want **remote workers** to be able to **plan their day and stay in flow** so that **they end each day knowing exactly what they accomplished**.
-
----
-
-## 3. Core Objectives
-
-- [ ] Users can complete their daily task planning within 2 minutes.
-- [ ] Weekly deep work time statistics are generated automatically without manual tracking.
-- [ ] Reach 500 weekly active users within 3 months after MVP launch.
+- Users can complete daily task planning within 2 minutes.
+- Users can track deep work time without manual spreadsheet entry.
+- Users can review weekly task completion and focus-time patterns from one dashboard.
 
 ---
 
-## 4. User Personas
+## 3. User Personas
 
 ### Busy Remote Engineer (Alex)
 - **Goal:** Quickly decide "what to finish today" before starting work and know how much was done before logging off.
@@ -38,7 +34,7 @@
 
 ---
 
-## 5. Key Feature Groups
+## 4. Key Feature Groups
 
 1. **User Authentication**
    - Email/Password registration and login
@@ -60,51 +56,41 @@
 
 ---
 
+## 5. Tech Stack
+
+- **Platform:** Responsive web app
+- **Language / Runtime:** TypeScript + Node.js
+- **Frontend Framework:** Next.js App Router
+- **UI / Component System:** shadcn/ui + Radix UI primitives
+- **Styling:** Tailwind CSS
+- **Backend / API:** Next.js API Routes
+- **Database:** PostgreSQL hosted on Supabase
+- **ORM / Data Access:** Prisma
+- **Authentication:** Better Auth with Google OAuth and email/password fallback
+- **Forms / Validation:** React Hook Form + Zod
+- **Background Jobs / Queue:** Scheduled jobs for daily rollover and weekly summary generation
+- **Infrastructure / Hosting:** Vercel for application hosting; Supabase for managed database
+- **Observability / Analytics:** Application logging and basic product analytics
+- **External Integrations:** Google OAuth; no productivity-tool integrations in the current phase
+
+---
+
 ## 6. System Architecture Overview
 
-- **Platform / Tech Stack:**
-  - Frontend: Next.js (App Router) + Tailwind CSS
-  - Backend: Next.js API Routes + Prisma ORM
-  - Database: PostgreSQL (hosted on Supabase)
-  - Infra: Vercel (frontend + API)
-- **Key Components:**
-  - `TaskService` — Task CRUD and daily reset logic
-  - `TimerService` — Timer state management and task record integration
-  - `StatsEngine` — Aggregating work time and completion rate statistics
-- **External Integrations:** Google OAuth (NextAuth.js), Supabase (DB + Auth alternative)
+- **Client / Interface:** Responsive web app for daily planning, timer control, and dashboard review.
+- **Application Layer:** API layer for account access, task management, timer sessions, and dashboard data.
+- **Data Store:** Primary relational database for users, tasks, projects/tags, timer sessions, and weekly aggregates.
+- **Background Processing:** Scheduled jobs for daily task rollover and weekly summary generation.
+- **Cache / Search:** Not needed for the v0.2 phase.
+- **Observability:** Application logging and basic usage analytics for core workflow completion and timer usage.
+- **External Integrations:** Google OAuth for sign-in; no third-party productivity tool integrations in the current phase.
 
 ---
 
-## 7. Out of Scope
+## 7. Phased Roadmap
 
-- Not supporting multiplayer collaboration and task assignment (evaluate in v2)
-- No Native Mobile App initially, responsive web only
-- No AI smart scheduling or automated priority suggestions
-- No integration with external tools like Slack or Jira (evaluate in v2)
-
----
-
-## 8. Phased Roadmap
-
-| Phase | Goal | Key Features |
-|------|------|---------|
-| MVP | Validate daily tasks + timer core loop | Task management, Pomodoro timer, basic authentication |
-| v1.0 | Complete launchable product | Stats dashboard, tagging system, task retention logic |
-| v2.0 | Expand use cases | Mobile PWA, team features, third-party integrations |
-
----
-
-## 9. Success Metrics
-
-- Reach 500 weekly active users within 3 months of MVP launch
-- 60% of active users use the timer feature daily
-- Average time for users to complete daily planning is < 2 minutes
-- 30-day user retention rate > 40%
-
----
-
-## 10. Open Questions
-
-- [ ] Does timer data need to support export (CSV / PDF)?
-- [ ] Should we support multiple "project" categories in the MVP, or use tags as a substitute initially?
-- [ ] Where should we draw the feature boundary between the free and paid plans?
+| Phase | Status | Goal | Key Features / Scope | Future Work / Out of Scope Notes |
+|------|--------|------|----------------------|----------------------------------|
+| v0.1 | Completed | Validate the daily task board + focus timer core loop. | Basic authentication, daily task board, Pomodoro timer, task-linked time records, basic weekly dashboard. | Team collaboration, native mobile app, AI scheduling, and third-party productivity integrations were intentionally excluded. |
+| v0.2 | Current | Improve retention and workflow clarity for recurring solo users. | Task retention preferences, project/tag filtering, weekly dashboard improvements, onboarding copy refinements, CSV export for freelancer reporting. | No team workspace, native mobile app, AI scheduling, Slack/Jira integration, or billing system in this phase. |
+| Future Work | Future Work | Expand FocusFlow beyond the validated solo remote-worker workflow. | Team workspaces, shared task boards, Slack/Jira integrations, AI-assisted scheduling, native mobile app, paid plan and billing flows. | All items here are deferred until v0.2 retention and workflow clarity are validated. |
