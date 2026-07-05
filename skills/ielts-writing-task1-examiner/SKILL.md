@@ -5,8 +5,11 @@ description: >
   Use when the user pastes an IELTS Writing Task 1 question and their essay and wants:
   (1) band scores on each official criterion (TA, CC, LR, GRA) plus an overall band score,
   (2) inline Markdown corrections on the original essay (strikethrough errors, inline code for corrections),
-  (3) detailed correction analysis, and
-  (4) a Band 7–9 model paraphrase with analysis.
+  (3) detailed correction analysis,
+  (4) a Band 7–9 model answer with selective HTML highlighting,
+  (5) model answer analysis, and
+  (6) a topic language bank covering chart/letter collocations, useful phrasal verbs where natural,
+  high-band vocabulary, and synonyms.
   Triggers on phrases like "批改 Task 1", "evaluate my IELTS writing", "IELTS Task 1 correction",
   or any submission of an IELTS Task 1 prompt + essay.
 ---
@@ -20,9 +23,26 @@ Read these files before evaluating:
 - **[assessment-criteria.md](references/assessment-criteria.md)** — official IELTS criteria definitions for TA, CC, LR, GRA
 - **[band-descriptors-task1.md](references/band-descriptors-task1.md)** — official band descriptors table (Band 0–9) for Task 1
 
+Also read the Markdown files in **[examples/](examples/)** before writing the output. Treat these examples as the formatting and style standard for:
+
+- the required header (`Date`, `Test`, `Question`)
+- section order and heading names
+- `Correction Analysis` subsection format
+- table column names and density
+- HTML highlight style and selectiveness
+- the practical tone and structure of `Topic Language Bank`
+
+Use the examples for format and presentation only. Do not copy their scoring, comments, model-answer content, or topic vocabulary unless it is directly relevant to the new prompt.
+
 ## Workflow
 
-Execute all five sections in order and write them to a Markdown file.
+Before writing the output:
+
+1. Read the assessment references listed above.
+2. Read all `.md` files in `examples/` if the directory exists.
+3. Use the examples as the canonical output template, while applying the current task's band descriptors and essay-specific analysis.
+
+Then write the required header first, execute all six sections in order, and write them to a Markdown file.
 
 ### Output File
 
@@ -32,7 +52,32 @@ Create a file in the **current working directory** (where the user ran Claude Co
 IELTS-Writing-Task1-YYYYMMDD.md
 ```
 
-Use today's date. Write all sections below into this file.
+Use today's date. Write the header and all sections below into this file.
+
+### Required Header
+
+Every output file must begin with exactly this metadata block:
+
+```
+**Date:** YYYY-MM-DD
+
+**Test:** Cambridge X, Test Y
+
+**Question:** Full IELTS Task 1 question text
+
+---
+```
+
+Header rules:
+
+- Do **not** add an H1/title above the header.
+- Do **not** use `Source`, `Prompt`, `Task type`, or other alternative labels.
+- Always include all three fields: `Date`, `Test`, and `Question`.
+- `Date` must match the date in the output filename.
+- `Test` should be inferred from the user's provided context or path when possible, e.g. `C10-Test1` -> `Cambridge 10, Test 1`.
+- If the test source cannot be identified, write `**Test:** Not specified`.
+- `Question` must reproduce the full Task 1 question, not a summary. If the prompt is not available, write `**Question:** Not provided`.
+- After the `---`, start Section 1 with `## Band Scores`.
 
 ---
 
@@ -60,28 +105,38 @@ For each criterion, write 1–2 sentences justifying the score.
 
 ### Section 2 — Corrected Essay
 
-Reproduce the user's **original essay verbatim**, applying inline Markdown corrections only:
+Reproduce the user's **original essay verbatim**, applying inline Markdown corrections and selective HTML highlighting:
 
 - `~~wrong phrase~~` `correct phrase` — for errors that need replacement (strikethrough the wrong, inline code the correct)
 - `` `inserted word` `` — for missing words that need to be inserted (no strikethrough needed)
 - Leave correct text untouched
+- Use the grey HTML highlight from Section 4 only for weaker wording that directly corresponds to a stronger topic phrase in the model answer or language bank.
 
 **Correction format example:**
 
-> I think skill stacking is a necessary ability for people in this generation. Because of `the` fast development of technology, some skills people learned ~~in least year~~ `last year` ~~maybe have been outdated today~~ `may already be outdated today`.
+> The chart shows ~~how much energy used~~ `how much energy is used` by Australian households. Heating <span style="background-color: rgba(148, 163, 184, 0.24); color: inherit; border-bottom: 1px solid rgba(148, 163, 184, 0.60);">takes up</span> 42%, while cooling ~~only has~~ `accounts for only` 2%.
 
-Do **not** rewrite the essay. Only mark errors inline using the above Markdown syntax.
+Do **not** rewrite the essay. Only mark errors inline and add selective HTML highlights.
 
 ---
 
 ### Section 3 — Correction Analysis
 
-Provide a detailed breakdown organised by criterion:
+Provide a detailed breakdown organised by criterion. Use exactly these four subsections in this order:
 
-- **Task Achievement**: What was covered well / what was missing or inaccurate
-- **Coherence & Cohesion**: Paragraphing, logical flow, cohesive device usage
-- **Lexical Resource**: Vocabulary range, word choice errors, collocations, spelling
-- **Grammatical Range & Accuracy**: Grammar errors listed with explanations, sentence structure variety
+```md
+### Task Achievement
+### Coherence & Cohesion
+### Lexical Resource
+### Grammatical Range & Accuracy
+```
+
+Use these stable formats:
+
+- **Task Achievement**: Use two short labelled blocks: `**What was done well:**` and `**What needs improvement:**`. Bullets should cover overview quality, selection of key features, data accuracy, comparisons, grouping, and missing or underdeveloped trends.
+- **Coherence & Cohesion**: Use the same two labelled blocks: `**What was done well:**` and `**What needs improvement:**`. Bullets should focus on paragraphing, logical progression, cohesive devices, repetition, vague references, and local flow.
+- **Lexical Resource**: Use a table first, then a short strengths note. Table columns must be exactly: `Error | Explanation | Correction`. After the table, add `**Vocabulary strengths:**` in one short paragraph or 2–4 bullets.
+- **Grammatical Range & Accuracy**: Use a table first, then a short sentence-structure note. Table columns must be exactly: `Error | Explanation | Correction`. After the table, add `**Structural strengths:**` in one short paragraph or 2–4 bullets.
 
 For each error identified in the corrected essay, explain *why* it is wrong and *what the correct form should be*.
 
@@ -96,7 +151,7 @@ Write a model answer that:
 - Uses natural academic/formal register appropriate to Task 1
 - Is appropriately structured with an overview/introduction, body paragraphs, and (for Academic) a clear overview of key trends
 - Meets the 150-word minimum
-- **Bolds every high-band vocabulary phrase and grammar structure** that will be highlighted in Section 5 — this lets the reader spot learning points at a glance without cross-referencing the analysis tables
+- Uses HTML `<span>` highlighting for selected high-band phrases that are especially useful for this task type and topic. Keep the highlighting selective (roughly 8–12 items) so the answer remains readable.
 
 Label this section:
 
@@ -104,30 +159,27 @@ Label this section:
 ## Band 7–9 Model Answer
 ```
 
-**Bolding convention:** Bold the exact word or phrase as it appears in the model answer. If a grammar structure spans a full sentence (e.g., a mid-sentence adverbial), bold the whole sentence. Ensure every item that appears in the Section 5 vocabulary table or grammar table is bolded in the model answer.
+**Highlighting convention:** Use this exact HTML style for high-band phrases in the model answer:
+
+```html
+<span style="background-color: rgba(34, 197, 94, 0.26); color: inherit; border-bottom: 1px solid rgba(34, 197, 94, 0.68);">phrase</span>
+```
+
+In the corrected essay, use this exact HTML style to mark the user's weaker wording when it directly corresponds to a stronger topic phrase in the model answer or language bank:
+
+```html
+<span style="background-color: rgba(148, 163, 184, 0.24); color: inherit; border-bottom: 1px solid rgba(148, 163, 184, 0.60);">phrase</span>
+```
 
 ---
 
 ### Section 5 — Model Answer Analysis
 
-Analyse the model answer to help the user learn from it. Use exactly these four subsections in this order:
-
-#### `### High-Band Vocabulary`
-A table with three columns: **Model answer phrase | User's version | Why it is stronger**
-- "User's version" is the phrase the user actually wrote (or "(not present)" if the user omitted the point entirely)
-- "Why it is stronger" explains the register, precision, or collocation advantage
-
-#### `### Structural Choices`
-Numbered list explaining how the model is organised — overview placement, data grouping strategy, paragraph sequencing, and how the model's structure improves on the user's.
-
-#### `### Grammar Structures That Elevate the Response`
-A table with three columns: **Structure | Example from model | Effect**
-- Bold every entry in the **Structure** column
-- "Example from model" quotes the exact phrase from the model answer
+Analyse the model answer briefly. Use exactly this one subsection:
 
 #### `### Key Differences from Your Essay`
 A table with three columns: **Your essay | Model answer | Why the model is stronger**
-- Compare the most impactful differences — word choice, structural moves, missing data points
+- Compare the most impactful differences — word choice, structural moves, missing data points, comparison quality, register issues
 - Tie each row back to a specific criterion (TA, CC, LR, or GRA) where helpful
 
 Label this section:
@@ -138,10 +190,44 @@ Label this section:
 
 ---
 
+### Section 6 — Topic Language Bank
+
+Create a practical language bank for the Task 1 topic or letter purpose. Draw from both the corrected essay and the model answer, and add useful task-relevant alternatives when helpful. Use exactly these four subsections:
+
+#### `### Collocations`
+Table columns: **Expression | Meaning / Use | Example sentence**
+- Include 8–12 natural combinations useful for this Task 1 topic or letter purpose.
+- For Academic Task 1, prefer data-description and comparison collocations over generic academic phrases.
+- For General Training Task 1, prefer tone-appropriate letter phrases and purpose-specific collocations.
+
+#### `### Phrasal Verbs`
+Table columns: **Phrasal verb | Meaning / Use | Example sentence**
+- Include 0–6 phrasal verbs only if they are natural for the task type and register.
+- For Academic Task 1, include fewer items if phrasal verbs would sound informal or forced.
+- If no phrasal verbs suit the topic, write one short sentence explaining that formal chart description does not require phrasal verbs for this task.
+
+#### `### High-Band Vocabulary`
+Table columns: **Word / phrase | Meaning / Use | Example sentence**
+- Include 8–12 higher-band words or phrases useful for this Task 1 topic.
+- Source can be the corrected essay, model answer, or task-relevant additions.
+
+#### `### Synonyms`
+Table columns: **Basic word / phrase | Stronger alternatives | Notes**
+- Include 6–10 rows for repeated, low-register, or imprecise wording from the user's essay and common IELTS Task 1 alternatives.
+
+Label this section:
+
+```
+## Topic Language Bank
+```
+
+---
+
 ## Notes
 
 - Maintain the perspective of a **professional senior IELTS examiner** throughout — objective, evidence-based, constructive
 - Do not over-correct: only mark genuine errors, not stylistic preferences
 - For Academic Task 1: pay special attention to whether the overview is present and whether key trends are identified (not just mechanical data listing)
+- For Academic Task 1: avoid adding a conclusion unless the response type naturally calls for one; the overview is the key summary paragraph
 - For General Training Task 1: pay special attention to tone, register, and whether all three bullet points are fully addressed
 - Word count below 150 words must be flagged and will negatively affect all criteria scores
