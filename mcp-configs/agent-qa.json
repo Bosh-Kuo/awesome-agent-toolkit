@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "agent-qa": {
+      "command": "npx",
+      "args": ["-y", "agent-qa", "mcp"]
+    }
+  }
+}
