@@ -56,6 +56,7 @@ Model Context Protocol (MCP) servers extend your AI assistant's capabilities by 
 | **Chrome DevTools**     | Interact with Chrome browser for testing, debugging, and automation                        | [Config](./mcp-configs/chrome-devtools-mcp.json) | [Chrome Blog](https://developer.chrome.com/blog/chrome-devtools-mcp) | 2026-01-21      |
 | **Shadcn UI**           | Access component source code, demos, and blocks for shadcn/ui                              | [Config](./mcp-configs/shadcn.json)              | [GitHub](https://github.com/Jpisnice/shadcn-ui-mcp-server)           | 2026-02-02      |
 | **MCP Database Server** | Connect to SQLite, SQL Server, PostgreSQL, and MySQL databases for query and management    | [Config](./mcp-configs/mcp-database-server.json) | [GitHub](https://github.com/executeautomation/mcp-database-server)   | 2026-03-18      |
+| **Roopedia MCP**        | Search 786+ verified AI tools, MCP security profiles, and CC-BY 4.0 SaaS pricing telemetry | [Config](./mcp-configs/roopedia-mcp.json)        | [GitHub](https://github.com/hajejbusiness/roopedia-mcp)              | 2026-11-17      |
 
 ### MCP Resources
 
@@ -63,6 +64,7 @@ Discover more MCP servers from these curated collections:
 
 - [Cursor MCP Directory](https://cursor.directory/mcp) - Community-curated MCP servers
 - [MCP.so](https://mcp.so/) - Official MCP server registry
+- [Roopedia MCP Hub](https://roopedia.com/mcp) - Bilingual (EN/FR) MCP security directory and verified AI tool pricing lab
 
 ---
 

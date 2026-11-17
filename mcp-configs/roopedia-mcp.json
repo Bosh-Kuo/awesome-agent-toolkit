@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "roopedia": {
+      "command": "npx",
+      "args": ["-y", "github:hajejbusiness/roopedia-mcp"]
+    }
+  }
+}
