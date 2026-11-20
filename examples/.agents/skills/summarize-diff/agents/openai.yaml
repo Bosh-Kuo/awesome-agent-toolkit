@@ -1,0 +1,6 @@
+interface:
+  display_name: "Summarize Git Diff"
+  short_description: "Summarize pending Git changes"
+  default_prompt: "Use $summarize-diff to summarize the staged and unstaged changes."
+policy:
+  allow_implicit_invocation: false
